@@ -44,6 +44,7 @@ var charInput = parseInt(prompt("How many characters in the password? Choose a n
     }
 }
 
+for (var i = 0; i < charLength; i++){
 
 
 var generateBtn = document.querySelector("#generate");
