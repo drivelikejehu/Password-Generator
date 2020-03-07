@@ -9,17 +9,18 @@ var numArr = ["1","2","3","4","5","6","7","8","9","0"];
 var specArr = ["!","@","#","$","%","^","&","*","(",")","{","}","|","[","]",";","'",":","<",">","?","/"];
 
 //main function
-function passGen() {
+function generatePassword() {
 //initial prompt
 var charInput = parseInt(prompt("How many characters in the password? Choose a number between 8 and 128."));
 
+passwordStr = "";
 //conditions if user enters wrong inputs
     if (isNaN(charInput)) {
         alert("Please enter a number between 8 and 128.");
-        passGen();
+        generatePassword();
     } else if (charInput < 8 || charInput > 128) {
         alert("Please enter a number between 8 and 128.");
-        passGen();
+        generatePassword();
     } else {
 //checking on boolean of inputs
       var lowerInput = confirm("Lowercase letters Ok?");
@@ -30,23 +31,41 @@ var charInput = parseInt(prompt("How many characters in the password? Choose a n
 //condition if user chooses 'cancel' on all confirms'
     if (!lowerInput && !upperInput && !numInput && !specInput) {
       alert("Please enter more criteria.");
-      passGen();
+      generatePassword();
     }
 //pushes all 'ok' responses to a master array
     if (lowerInput == true){
-    customArr.push(lowerArr);
+      customArr = customArr.concat(lowerArr);
     }
+    
     if (upperInput == true){
-    customArr.push(upperArr);
+      customArr = customArr.concat(upperArr);
     }
+
     if (numInput == true){
-    customArr.push(numArr);
+      customArr = customArr.concat(numArr);
     }
-    if (specInput == true){
-    customArr.push(specArr);
-    }
-}
+    
+   if (specInput == true){
+    customArr = customArr.concat(specArr);
+   }
+
 //running a loop based on number of characters
 for (var i = 0; i < charInput; i++){
+
 }
+}
+var generateBtn = document.querySelector("#generate");
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
+
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
