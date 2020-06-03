@@ -1,8 +1,8 @@
 const randomFunctions = {
-  lower: randomLower,
-  upper: randomUpper,
-  number: randomNum,
-  character: randomChar,
+  lowerInput: randomLower,
+  upperInput: randomUpper,
+  numInput: randomNum,
+  specInput: randomChar,
 };
 
 const generateBtn = document.getElementById("generate");
@@ -11,7 +11,6 @@ const passwordEl = document.getElementById("password");
 generateBtn.addEventListener("click", generatePassword);
 
 function generatePassword() {
-  let passwordToReturn = "";
   //prompt user for password length
   var passwordLength = parseInt(
     prompt(
@@ -38,20 +37,33 @@ function generatePassword() {
     alert("Please enter more criteria.");
     generatePassword();
   }
+  let passwordToReturn = "";
   //determine how many parameters the user wants
   const typesCount = lowerInput + upperInput + numInput + specInput;
-  console.log('typesCount: ', typesCount)
+  console.log("typesCount: ", typesCount);
 
-  const typesArr = [{lowerInput}, {upperInput}, {numInput}, {specInput}].filter(
+  const typesArr = [
+    { lowerInput },
+    { upperInput },
+    { numInput },
+    { specInput },
+  ].filter(
     //checks each item in the array for 'true' boolean values
-    item => Object.values(item)[0]
-  )
-  console.log('typesArr: ', typesArr)
+    (item) => Object.values(item)[0]
+  );
 
+  //iterates over the new array and returns the function
+  for(let i = 0; i < passwordLength; i += typesCount) {
+    typesArr.forEach(type => {
+      const functionName = Object.keys(type)[0];
+      passwordToReturn += randomFunctions[functionName]();
+      //send password to the password textarea
+      passwordEl.innerHTML = passwordToReturn;
+    })
+  }
 }
 
 // Generator functions
-
 function randomLower() {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 }
