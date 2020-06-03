@@ -1,71 +1,82 @@
-// Assignment Code
+const randomFunctions = {
+  lowerInput: randomLower,
+  upperInput: randomUpper,
+  numInput: randomNum,
+  specInput: randomChar,
+};
 
-//empty array based on user choices
-var customArr = [];
-//prompt and confirm arrays
-var lowerArr = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-var upperArr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","W","X","Y","Z"];
-var numArr = ["1","2","3","4","5","6","7","8","9","0"];
-var specArr = ["!","@","#","$","%","^","&","*","(",")","{","}","|","[","]",";","'",":","<",">","?","/"];
+const generateBtn = document.getElementById("generate");
+const passwordEl = document.getElementById("password");
 
-//main function
+generateBtn.addEventListener("click", generatePassword);
+
 function generatePassword() {
-//initial prompt
-var charInput = parseInt(prompt("How many characters in the password? Choose a number between 8 and 128."));
+  //prompt user for password length
+  var passwordLength = parseInt(
+    prompt(
+      "How many characters in the password? Choose a number between 8 and 128."
+    )
+  );
 
-passwordStr = "";
-//conditions if user enters wrong inputs
-    if (isNaN(charInput)) {
-        alert("Please enter a number between 8 and 128.");
-        generatePassword();
-    } else if (charInput < 8 || charInput > 128) {
-        alert("Please enter a number between 8 and 128.");
-        generatePassword();
-    } else {
-//checking on boolean of inputs
-      var lowerInput = confirm("Lowercase letters Ok?");
-      var upperInput = confirm("Uppercase letters Ok?");
-      var numInput = confirm("Numbers Ok?");
-      var specInput = confirm("Special characters Ok?");  
-    }
-//condition if user chooses 'cancel' on all confirms'
-    if (!lowerInput && !upperInput && !numInput && !specInput) {
-      alert("Please enter more criteria.");
-      generatePassword();
-    }
-//pushes all 'ok' responses to a master array
-    if (lowerInput == true){
-      customArr = customArr.concat(lowerArr);
-    }
-    
-    if (upperInput == true){
-      customArr = customArr.concat(upperArr);
-    }
+  //conditions if user enters wrong inputs
+  if (isNaN(passwordLength)) {
+    alert("Please enter a number between 8 and 128.");
+    generatePassword();
+  } else if (passwordLength < 8 || passwordLength > 128) {
+    alert("Please enter a number between 8 and 128.");
+    generatePassword();
+  } else {
+    //checking on boolean of inputs
+    var lowerInput = confirm("Lowercase letters Ok?");
+    var upperInput = confirm("Uppercase letters Ok?");
+    var numInput = confirm("Numbers Ok?");
+    var specInput = confirm("Special characters Ok?");
+  }
+  //condition if user chooses 'cancel' on all confirms'
+  if (!lowerInput && !upperInput && !numInput && !specInput) {
+    alert("Please enter more criteria.");
+    generatePassword();
+  }
+  let passwordToReturn = "";
+  //determine how many parameters the user wants
+  const typesCount = lowerInput + upperInput + numInput + specInput;
+  console.log("typesCount: ", typesCount);
 
-    if (numInput == true){
-      customArr = customArr.concat(numArr);
-    }
-    
-   if (specInput == true){
-    customArr = customArr.concat(specArr);
-   }
+  const typesArr = [
+    { lowerInput },
+    { upperInput },
+    { numInput },
+    { specInput },
+  ].filter(
+    //checks each item in the array for 'true' boolean values
+    (item) => Object.values(item)[0]
+  );
 
-//running a loop based on number of characters
-for (var i = 0; i < charInput; i++){
-
-}
-}
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  //iterates over the new array and returns the function
+  for(let i = 0; i < passwordLength; i += typesCount) {
+    typesArr.forEach(type => {
+      const functionName = Object.keys(type)[0];
+      passwordToReturn += randomFunctions[functionName]();
+      //send password to the password textarea
+      passwordEl.innerHTML = passwordToReturn;
+    })
+  }
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// Generator functions
+function randomLower() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
 
+function randomUpper() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+function randomNum() {
+  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+}
+
+function randomChar() {
+  const symbols = "!@#$%^&*(){}|[];:<>?/";
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
