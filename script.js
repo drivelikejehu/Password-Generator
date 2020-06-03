@@ -5,36 +5,39 @@ const randomFunctions = {
   character: randomChar,
 };
 
-const generateBtn = document.querySelector("#generate");
-generateBtn.addEventListener("click", generatePassword);
+const generateBtn = document.getElementById('generate');
+const passwordEl = document.getElementById('password');
+
+generateBtn.addEventListener('click', generatePassword);
 
 function generatePassword() {
   //prompt user for password length
-  var charInput = parseInt(
+  var passwordLength = parseInt(
     prompt(
-      "How many characters in the password? Choose a number between 8 and 128."
+      'How many characters in the password? Choose a number between 8 and 128.'
     )
   );
 
   //conditions if user enters wrong inputs
-  if (isNaN(charInput)) {
-    alert("Please enter a number between 8 and 128.");
+  if (isNaN(passwordLength)) {
+    alert('Please enter a number between 8 and 128.');
     generatePassword();
-  } else if (charInput < 8 || charInput > 128) {
-    alert("Please enter a number between 8 and 128.");
+  } else if (passwordLength < 8 || passwordLength > 128) {
+    alert('Please enter a number between 8 and 128.');
     generatePassword();
   } else {
     //checking on boolean of inputs
-    var lowerInput = confirm("Lowercase letters Ok?");
-    var upperInput = confirm("Uppercase letters Ok?");
-    var numInput = confirm("Numbers Ok?");
-    var specInput = confirm("Special characters Ok?");
+    var lowerInput = confirm('Lowercase letters Ok?');
+    var upperInput = confirm('Uppercase letters Ok?');
+    var numInput = confirm('Numbers Ok?');
+    var specInput = confirm('Special characters Ok?');
   }
   //condition if user chooses 'cancel' on all confirms'
   if (!lowerInput && !upperInput && !numInput && !specInput) {
-    alert("Please enter more criteria.");
+    alert('Please enter more criteria.');
     generatePassword();
   }
+  console.log(lowerInput, upperInput, numInput, specInput);
 }
 
 // Generator functions
@@ -52,6 +55,6 @@ function randomNum() {
 }
 
 function randomChar() {
-  const symbols = "!@#$%^&*(){}|[];:<>?/";
+  const symbols = '!@#$%^&*(){}|[];:<>?/';
   return symbols[Math.floor(Math.random() * symbols.length)];
 }
