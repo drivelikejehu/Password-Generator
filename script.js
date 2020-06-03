@@ -40,7 +40,6 @@ function generatePassword() {
   let passwordToReturn = "";
   //determine how many parameters the user wants
   const typesCount = lowerInput + upperInput + numInput + specInput;
-  console.log("typesCount: ", typesCount);
 
   const typesArr = [
     { lowerInput },
