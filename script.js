@@ -52,13 +52,13 @@ function generatePassword() {
   );
 
   //iterates over the new array and returns the function
-  for(let i = 0; i < passwordLength; i += typesCount) {
-    typesArr.forEach(type => {
+  for (let i = 0; i < passwordLength; i += typesCount) {
+    typesArr.forEach((type) => {
       const functionName = Object.keys(type)[0];
       passwordToReturn += randomFunctions[functionName]();
       //send password to the password textarea
       passwordEl.innerHTML = passwordToReturn;
-    })
+    });
   }
 }
 
