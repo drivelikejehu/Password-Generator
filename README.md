@@ -1,9 +1,22 @@
-# Code-Quiz
+# 03 Javascript: Password Generator
 
-https://drivelikejehu.github.io/Code-Quiz/
+https://drivelikejehu.github.io/Password-Generator/
 
-## Description
 
-The purpose of this assignment was to create a short, multiple-answer quiz.
-There is a timer and a score, which are affected by choosing the correct response.
-The scores are then calculated into local storage, separated by initials.
+## Purpose 
+
+To create a password using HTML, CSS, and Javascript elements, dependent on user-defined parameters.
+
+### Instructions
+
+Included is an index.html, script.css, and a style.css file.
+Please download files to view project.
+
+User will click the Generate Password button, and will recieve a series of prompts and confirms. These parameters will result in a user-generated password.
+
+#### Acceptance Criteria
+
+GIVEN I need a new, secure password
+WHEN I click the button to generate a password
+THEN I am presented with a series of prompts for password criteria
+
